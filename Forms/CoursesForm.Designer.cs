@@ -98,6 +98,7 @@
             Controls.Add(UpdateButton);
             Controls.Add(CoursesGridView);
             Name = "CoursesForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)CoursesGridView).EndInit();

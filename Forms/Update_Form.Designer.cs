@@ -145,6 +145,7 @@
             Controls.Add(DegreeLabel);
             Controls.Add(CourseNamelabel);
             Name = "Update_Form";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Update_Form";
             ResumeLayout(false);
             PerformLayout();

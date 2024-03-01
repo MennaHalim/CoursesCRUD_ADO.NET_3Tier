@@ -145,6 +145,7 @@
             Controls.Add(DegreeLabel);
             Controls.Add(CourseNamelabel);
             Name = "AddForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Add";
             ResumeLayout(false);
             PerformLayout();

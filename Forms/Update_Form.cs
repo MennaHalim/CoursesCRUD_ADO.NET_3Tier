@@ -22,8 +22,8 @@ namespace Forms
         {
             Course = course;
             InitializeComponent();
-            LoadCourseData();
             LoadDepartments();
+            LoadCourseData();
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
