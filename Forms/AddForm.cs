@@ -14,10 +14,12 @@ namespace Forms
 {
     public partial class AddForm : Form
     {
-        CourseBLL courseBLL = new CourseBLL();
-        DepartmentBLL departmentBLL = new DepartmentBLL();
-        public AddForm()
+        private readonly ICourseBLL CourseBLL;
+        private readonly IDepartmentBLL DepartmentBLL;
+        public AddForm(ICourseBLL courseBLL, IDepartmentBLL departmentBLL)
         {
+            CourseBLL = courseBLL;
+            DepartmentBLL = departmentBLL;
             InitializeComponent();
             LoadDepartments();
         }
@@ -29,13 +31,13 @@ namespace Forms
             int minDegree = int.Parse(MinimumDegreeTextBox.Text);
             int departmentId = int.Parse(DepartmentsComboBox.SelectedValue.ToString());
 
-            courseBLL.Insert(name, degree, minDegree, departmentId);
+            CourseBLL.Insert(name, degree, minDegree, departmentId);
 
             Close();
         }
         private void LoadDepartments()
         {
-            DepartmentsComboBox.DataSource = departmentBLL.GetAll();
+            DepartmentsComboBox.DataSource = DepartmentBLL.GetAll();
             DepartmentsComboBox.DisplayMember = "Name";
             DepartmentsComboBox.ValueMember = "Id";
         }

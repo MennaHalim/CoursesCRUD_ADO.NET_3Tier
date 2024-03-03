@@ -1,3 +1,7 @@
+using System.Configuration;
+using Autofac;
+using System.Windows.Forms;
+
 namespace Forms
 {
     internal static class Program
@@ -8,10 +12,18 @@ namespace Forms
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new CoursesForm());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Build Autofac container
+            var container = AutofacConfig.AutofacConfig.BuildContainer();
+
+            // Resolve and run the main form
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var mainForm = scope.Resolve<CoursesForm>();
+                Application.Run(mainForm);
+            }
         }
     }
 }

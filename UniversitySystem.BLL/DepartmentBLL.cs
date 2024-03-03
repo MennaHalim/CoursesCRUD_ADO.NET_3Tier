@@ -9,15 +9,20 @@ using UniversitySystem.DAL;
 
 namespace UniversitySystem.BLL
 {
-    public class DepartmentBLL
+    public class DepartmentBLL :IDepartmentBLL
     {
-        DepartmentDAL departmentDAL = new DepartmentDAL();
+        private readonly IDepartmentDAL DepartmentDAL;
+
+        public DepartmentBLL(IDepartmentDAL departmentDAL)
+        {
+            DepartmentDAL = departmentDAL;
+        }
 
         public List<Department> GetAll()
         {
             List<Department> list = new List<Department>();
 
-            DataTable dataTable = departmentDAL.GetAll();
+            DataTable dataTable = DepartmentDAL.GetAll();
             foreach (DataRow item in dataTable.Rows)
             {
                 Department department = new Department();
@@ -33,7 +38,7 @@ namespace UniversitySystem.BLL
 
         public Department? GetOne(int departmentId)
         {
-            DataRow? row = departmentDAL.GetOne(departmentId);
+            DataRow? row = DepartmentDAL.GetOne(departmentId);
             if (row != null)
             {
                 Department department = new Department();
@@ -44,5 +49,6 @@ namespace UniversitySystem.BLL
             }
             return null;
         }
+
     }
 }

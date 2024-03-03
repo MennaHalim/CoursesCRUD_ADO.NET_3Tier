@@ -8,13 +8,16 @@ using System.Threading.Tasks;
 
 namespace UniversitySystem.DAL
 {
-    public class DepartmentDAL
+    public class DepartmentDAL :IDepartmentDAL
     {
-        private readonly string connectionString = "Data Source=.;Initial Catalog=Courses;" +
-            "Integrated Security=True;TrustServerCertificate=True";
-        SqlCommand sqlCommand = new SqlCommand();
+        private readonly string connectionString;
 
-        
+        public DepartmentDAL(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
+
+
         public DataTable GetAll()
         {
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("Select * from Departments", new SqlConnection(connectionString));

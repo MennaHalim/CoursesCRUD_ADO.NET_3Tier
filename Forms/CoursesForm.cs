@@ -10,12 +10,15 @@ namespace Forms
 {
     public partial class CoursesForm : Form
     {
-        CourseBLL courseBLL = new CourseBLL();
-        DepartmentBLL departmentBLL = new DepartmentBLL();
-        int selectedRowIndex = -1;
-        public CoursesForm()
+        private readonly ICourseBLL courseBLL;
+        private readonly IDepartmentBLL departmentBLL;
+        private int selectedRowIndex = -1;
+
+        public CoursesForm(ICourseBLL courseBLL, IDepartmentBLL departmentBLL)
         {
             InitializeComponent();
+            this.courseBLL = courseBLL;
+            this.departmentBLL = departmentBLL;
             LoadGrid();
         }
 
@@ -25,13 +28,11 @@ namespace Forms
 
             CoursesGridView.DataSource = courses;
 
-            // Set up the "DepartmentName" column
             SetDepartmentNameColumn();
         }
 
         private void SetDepartmentNameColumn()
         {
-            // Add "DepartmentName" column if it doesn't exist
             if (!CoursesGridView.Columns.Contains("DepartmentName"))
             {
                 DataGridViewTextBoxColumn departmentNameColumn = new DataGridViewTextBoxColumn();
@@ -81,7 +82,7 @@ namespace Forms
             };
 
             Hide();
-            new Update_Form(course).ShowDialog();
+            new Update_Form(courseBLL, departmentBLL,course).ShowDialog();
             Show();
             HideButtons();
             LoadGrid();
@@ -93,7 +94,7 @@ namespace Forms
         private void AddButton_Click(object sender, EventArgs e)
         {
             Hide();
-            new AddForm().ShowDialog();
+            new AddForm(courseBLL, departmentBLL).ShowDialog();
             Show();
             LoadGrid();
         }

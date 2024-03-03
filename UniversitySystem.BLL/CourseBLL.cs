@@ -10,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace UniversitySystem.BLL
 {
-    public class CourseBLL
+    public class CourseBLL : ICourseBLL
     {
-        CourseDAL CourseDAL = new CourseDAL();
+        private readonly ICourseDAL CourseDAL;
+
+        public CourseBLL(ICourseDAL courseDAL)
+        {
+            CourseDAL = courseDAL;
+        }
 
         public List<Course> GetAll()
         {

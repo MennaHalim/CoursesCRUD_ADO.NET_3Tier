@@ -15,11 +15,13 @@ namespace Forms
 {
     public partial class Update_Form : Form
     {
-        CourseBLL courseBLL = new CourseBLL();
-        DepartmentBLL departmentBLL = new DepartmentBLL();
+        private readonly ICourseBLL CourseBLL;
+        private readonly IDepartmentBLL DepartmentBLL;
         Course Course;
-        public Update_Form(Course course)
+        public Update_Form(ICourseBLL courseBLL, IDepartmentBLL departmentBLL, Course course)
         {
+            CourseBLL = courseBLL;
+            DepartmentBLL = departmentBLL;
             Course = course;
             InitializeComponent();
             LoadDepartments();
@@ -33,7 +35,7 @@ namespace Forms
             int minDegree = int.Parse(MinimumDegreeTextBox.Text);
             int departmentId = int.Parse(DepartmentsComboBox.SelectedValue.ToString());
 
-            courseBLL.Update(Course.Id, name, degree, minDegree, departmentId);
+            CourseBLL.Update(Course.Id, name, degree, minDegree, departmentId);
 
             Close();
         }
@@ -48,7 +50,7 @@ namespace Forms
 
         private void LoadDepartments()
         {
-            DepartmentsComboBox.DataSource = departmentBLL.GetAll();
+            DepartmentsComboBox.DataSource = DepartmentBLL.GetAll();
             DepartmentsComboBox.DisplayMember = "Name";
             DepartmentsComboBox.ValueMember = "Id";
         }

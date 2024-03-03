@@ -4,11 +4,15 @@ using System.Data;
 
 namespace UniversitySystem.DAL
 {
-    public class CourseDAL
+    public class CourseDAL : ICourseDAL
     {
-        private readonly string connectionString = "Data Source=.;Initial Catalog=Courses;" +
-            "Integrated Security=True;TrustServerCertificate=True";
         private SqlCommand sqlCommand = new SqlCommand();
+        private readonly string connectionString;
+
+        public CourseDAL(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
         public DataTable GetAll()
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
